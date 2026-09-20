@@ -1,0 +1,398 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Orbitron:wght@600;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #030712;
+  --color-surface: #0b1329;
+  --color-surface2: #131f3d;
+  --color-surface-glass: rgba(11, 19, 41, 0.75);
+  --color-border: #1e293b;
+  --color-border-glow: rgba(34, 197, 94, 0.3);
+  --color-accent: #10B981;
+  --color-accent-bright: #00FF9D;
+  --color-warn: #F59E0B;
+  --color-danger: #EF4444;
+  --color-danger-bright: #FF3366;
+  --color-info: #06B6D4;
+  --color-fg: #F8FAFC;
+  --color-fg-muted: #94A3B8;
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #1e293b #060b18;
+}
+
+*::-webkit-scrollbar { width: 6px; height: 6px; }
+*::-webkit-scrollbar-track { background: #060b18; }
+*::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; border: 1px solid rgba(255,255,255,0.05); }
+*::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+/* 3D Ambient Lighting & Deep Space Vignette */
+body {
+  background-color: #030712;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 85% 20%, rgba(16, 185, 129, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 15% 70%, rgba(239, 68, 68, 0.04) 0%, transparent 50%),
+    linear-gradient(180deg, #030712 0%, #050b18 100%);
+  background-attachment: fixed;
+}
+
+/* Subtle CRT Hologram Scanlines */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@layer components {
+  /* 3D Tactile Frosted Cards with Edge Bevels */
+  .card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(13, 23, 48, 0.85) 0%, rgba(8, 14, 30, 0.95) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 
+      0 12px 30px -8px rgba(0, 0, 0, 0.8),
+      0 4px 12px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.6);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  .card:hover {
+    border-color: rgba(0, 255, 157, 0.25);
+    box-shadow: 
+      0 18px 40px -10px rgba(0, 0, 0, 0.9),
+      0 0 20px rgba(16, 185, 129, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  }
+
+  .card-sm {
+    @apply card;
+    padding: 0.75rem;
+  }
+
+  /* 3D Highlight Cards */
+  .card-glow-accent {
+    border-color: rgba(16, 185, 129, 0.35);
+    box-shadow: 
+      0 12px 30px -8px rgba(0, 0, 0, 0.8),
+      0 0 24px rgba(16, 185, 129, 0.2),
+      inset 0 1px 0 rgba(0, 255, 157, 0.3);
+  }
+
+  .card-glow-danger {
+    border-color: rgba(239, 68, 68, 0.45);
+    box-shadow: 
+      0 12px 30px -8px rgba(0, 0, 0, 0.8),
+      0 0 28px rgba(239, 68, 68, 0.3),
+      inset 0 1px 0 rgba(255, 99, 132, 0.35);
+  }
+
+  .label {
+    @apply text-fg-muted text-[10px] font-semibold uppercase tracking-wider;
+    letter-spacing: 0.12em;
+  }
+
+  .value-lg {
+    @apply text-fg text-2xl lg:text-3xl font-bold font-mono tracking-tight;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  }
+
+  .value-md {
+    @apply text-fg text-xl font-semibold font-mono tracking-tight;
+  }
+
+  /* 3D Badges */
+  .badge-online {
+    @apply inline-flex items-center gap-1.5 bg-emerald-950/60 text-emerald-400 border border-emerald-500/30 rounded-full px-2.5 py-0.5 text-xs font-semibold shadow-sm;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+  }
+  .badge-warn {
+    @apply inline-flex items-center gap-1.5 bg-amber-950/60 text-amber-400 border border-amber-500/30 rounded-full px-2.5 py-0.5 text-xs font-semibold;
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.2);
+  }
+  .badge-danger {
+    @apply inline-flex items-center gap-1.5 bg-red-950/60 text-red-400 border border-red-500/40 rounded-full px-2.5 py-0.5 text-xs font-semibold;
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
+  }
+  .badge-info {
+    @apply inline-flex items-center gap-1.5 bg-cyan-950/60 text-cyan-400 border border-cyan-500/30 rounded-full px-2.5 py-0.5 text-xs font-semibold;
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+  }
+  .badge-muted {
+    @apply inline-flex items-center gap-1.5 bg-slate-900/80 text-slate-400 border border-slate-700/60 rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  /* 3D Tactile Buttons */
+  .btn-primary {
+    position: relative;
+    background: linear-gradient(180deg, #10B981 0%, #059669 100%);
+    color: #021a0f;
+    font-weight: 700;
+    padding: 0.5rem 1.1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-bottom: 2px solid #047857;
+    box-shadow: 
+      0 4px 14px rgba(16, 185, 129, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-primary:hover {
+    background: linear-gradient(180deg, #34d399 0%, #10B981 100%);
+    box-shadow: 
+      0 6px 20px rgba(16, 185, 129, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active {
+    transform: translateY(2px);
+    box-shadow: 
+      0 2px 6px rgba(16, 185, 129, 0.3),
+      inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-secondary {
+    position: relative;
+    background: linear-gradient(180deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+    color: #f1f5f9;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.15s ease;
+  }
+  .btn-secondary:hover {
+    border-color: rgba(16, 185, 129, 0.5);
+    color: #34d399;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.2);
+    transform: translateY(-1px);
+  }
+  .btn-secondary:active {
+    transform: translateY(1px);
+  }
+
+  .btn-danger {
+    position: relative;
+    background: linear-gradient(180deg, #EF4444 0%, #DC2626 100%);
+    color: #fff;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 2px solid #991b1b;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    box-shadow: 
+      0 4px 14px rgba(239, 68, 68, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.15s ease;
+  }
+  .btn-danger:hover {
+    background: linear-gradient(180deg, #f87171 0%, #EF4444 100%);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.6);
+    transform: translateY(-1px);
+  }
+  .btn-danger:active {
+    transform: translateY(2px);
+  }
+
+  /* Navigation Item 3D Depth */
+  .nav-item {
+    @apply flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 cursor-pointer transition-all duration-150 text-xs font-medium tracking-wide;
+    border: 1px solid transparent;
+  }
+  .nav-item:hover {
+    border-color: rgba(255, 255, 255, 0.06);
+    transform: translateX(3px);
+  }
+  .nav-item-active {
+    @apply flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-emerald-300 bg-gradient-to-r from-emerald-950/60 to-slate-900/40 cursor-pointer text-xs font-semibold tracking-wide;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    border-left: 3px solid #10B981;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transform: translateX(2px);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+  }
+  .glow-danger {
+    box-shadow: 0 0 24px rgba(239, 68, 68, 0.5);
+  }
+  .glow-warn {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+  }
+  .glow-info {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+  }
+}
+
+/* 3D Perspective Canvas Container */
+.perspective-container {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.isometric-view {
+  transform: rotateX(24deg) rotateZ(-6deg) scale(0.96);
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 
+    -20px 30px 50px rgba(0, 0, 0, 0.9),
+    0 0 40px rgba(6, 182, 212, 0.1);
+}
+
+.flat-view {
+  transform: rotateX(0deg) rotateZ(0deg) scale(1);
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Sci-Fi HUD Corner Brackets */
+.hud-corner-tl {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid rgba(0, 255, 157, 0.6);
+  border-left: 2px solid rgba(0, 255, 157, 0.6);
+  pointer-events: none;
+}
+.hud-corner-br {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  border-bottom: 2px solid rgba(0, 255, 157, 0.6);
+  border-right: 2px solid rgba(0, 255, 157, 0.6);
+  pointer-events: none;
+}
+
+/* Radar & LiDAR Scanner Animations */
+@keyframes radarSweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.radar-sweep {
+  animation: radarSweep 4s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes lidarPulse {
+  0%, 100% { opacity: 0.15; transform: scale(0.95); }
+  50% { opacity: 0.55; transform: scale(1.05); }
+}
+.lidar-pulse {
+  animation: lidarPulse 2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Airflow 3D vector animation */
+@keyframes flowRight3d {
+  0% { transform: translateX(-12px); opacity: 0.05; }
+  40% { opacity: 0.95; }
+  100% { transform: translateX(12px); opacity: 0.05; }
+}
+.airflow-arrow {
+  animation: flowRight3d 2s ease-in-out infinite;
+}
+.airflow-arrow:nth-child(2) { animation-delay: 0.3s; }
+.airflow-arrow:nth-child(3) { animation-delay: 0.6s; }
+.airflow-arrow:nth-child(4) { animation-delay: 0.9s; }
+.airflow-arrow:nth-child(5) { animation-delay: 1.2s; }
+
+/* 3D Hologram Beacon Ping */
+@keyframes holoBeacon {
+  0% { transform: scale(0.3); opacity: 0.9; }
+  70% { opacity: 0.4; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+.holo-beacon {
+  animation: holoBeacon 1.8s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+}
+
+/* Alert Flash */
+@keyframes alertFlash {
+  0%, 100% { 
+    border-color: rgba(239, 68, 68, 0.4); 
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.2); 
+  }
+  50% { 
+    border-color: rgba(255, 51, 102, 1); 
+    box-shadow: 0 0 35px rgba(255, 51, 102, 0.5); 
+  }
+}
+.alert-flash { animation: alertFlash 1.2s ease-in-out infinite; }
+
+/* Hologram Grid Floor Scan */
+@keyframes scanPlane {
+  0% { transform: translateY(-100%); opacity: 0; }
+  50% { opacity: 0.6; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+.scan-line {
+  position: absolute;
+  left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 157, 0.6), rgba(6, 182, 212, 0.8), transparent);
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.5);
+  animation: scanPlane 3.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Floating animation for 3D tags */
+@keyframes floatTag {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+.float-3d {
+  animation: floatTag 3s ease-in-out infinite;
+}
